@@ -39,47 +39,71 @@ class dbContext:
             logging.info('Database connection closed.')
             
     def select(self, columns, key = None, value = None):
-        self.openConnection()
-        if key == None:
-            self._cursor.execute(f'SELECT {columns} FROM {self._table}')
-            results = self._cursor.fetchmany()
-        else:
-            self._cursor.execute(f'SELECT {columns} FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
-            results = self._cursor.fetchmany()
-        self.closeConnection()
-        return results
+        try:
+            self.openConnection()
+            if key == None:
+                self._cursor.execute(f'SELECT {columns} FROM {self._table}')
+                results = self._cursor.fetchmany()
+            else:
+                self._cursor.execute(f'SELECT {columns} FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
+                results = self._cursor.fetchmany()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
     
     def selectAllColumns(self, key = None, value = None):
-        self.openConnection()
-        if key == None:
-            self._cursor.execute(f'SELECT * FROM {self._table}')
-            results = self._cursor.fetchmany()
-        else:
-            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
-            results = self._cursor.fetchmany()
-        self.closeConnection()
-        return results
+        try:
+            self.openConnection()
+            if key == None:
+                self._cursor.execute(f'SELECT * FROM {self._table}')
+                results = self._cursor.fetchmany()
+            else:
+                self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
+                results = self._cursor.fetchmany()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
     
     def insert(self,values):
-        self.openConnection()
-        self._cursor.execute(f'CALL insert_{self._table[:-1]}_procedure({",".join(values)})')
-        self._conn.commit()
-        self.closeConnection()
+        try:
+            self.openConnection()
+            self._cursor.execute(f'CALL insert_{self._table[:-1]}_procedure({",".join(values)})')
+            self._conn.commit()
+            self.closeConnection()
+        except (Exception,psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
         
     def update(self,updateColumn,updateValue,whereColumn,whereValue):
-        self.openConnection()
-        self._cursor.execute(f'UPDATE {self._table} SET {updateColumn} = \'{updateValue}\' WHERE {whereColumn} LIKE \'%{whereValue}%\'')
-        self._conn.commit()
-        self.closeConnection()
+        try:
+            self.openConnection()
+            self._cursor.execute(f'UPDATE {self._table} SET {updateColumn} = \'{updateValue}\' WHERE {whereColumn} LIKE \'%{whereValue}%\'')
+            self._conn.commit()
+            self.closeConnection()
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
         
     def updateMany(self,columns_values,whereColumn,whereValue):
-        self.openConnection()
-        self._cursor.execute(f'UPDATE {self._table} SET ({",".join(columns_values.keys())}) = ({",".join(columns_values.values())}) WHERE {whereColumn} LIKE \'%{whereValue}%\'')
-        self._conn.commit()
-        self.closeConnection()
+        try:
+            self.openConnection()
+            self._cursor.execute(f'UPDATE {self._table} SET ({",".join(columns_values.keys())}) = ({",".join(columns_values.values())}) WHERE {whereColumn} LIKE \'%{whereValue}%\'')
+            self._conn.commit()
+            self.closeConnection()
+        except (Exception,psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
         
     def delete(self,column,value):
-        self.openConnection()
-        self._cursor.execute(f'DELETE FROM {self._table} WHERE {column} LIKE \'%{value}%\'')
-        self._conn.commit()
-        self.closeConnection
+        try:
+            self.openConnection()
+            self._cursor.execute(f'DELETE FROM {self._table} WHERE {column} LIKE \'%{value}%\'')
+            self._conn.commit()
+            self.closeConnection
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
