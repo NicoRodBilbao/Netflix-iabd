@@ -8,7 +8,7 @@ class dbContext:
         self._conn = None
         self._cursor = None
 
-    def config(self, filename='dbData.ini', section='postgresql'):
+    def config(self, filename='./database/dbData.ini', section='postgresql'):
         parser = ConfigParser()
         parser.read(filename)
         
@@ -43,10 +43,10 @@ class dbContext:
             self.openConnection()
             if key == None:
                 self._cursor.execute(f'SELECT {columns} FROM {self._table}')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             else:
                 self._cursor.execute(f'SELECT {columns} FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             self.closeConnection()
             return results
         except (Exception, psycopg2.DatabaseError) as error:
@@ -58,10 +58,21 @@ class dbContext:
             self.openConnection()
             if key == None:
                 self._cursor.execute(f'SELECT * FROM {self._table}')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             else:
                 self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
+            
+    def selectById(self, value):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {self._table[:-1]}_id = {value}')
+            results = self._cursor.fetchone()
             self.closeConnection()
             return results
         except (Exception, psycopg2.DatabaseError) as error:
