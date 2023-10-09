@@ -12,7 +12,8 @@
 # Here start the actual classes
 
 class movie:
-    def __init__(self,title,rating,description,cost,earnings,movie_image,release_date,duration):
+    def __init__(self,id,title,rating,description,cost,earnings,movie_image,release_date,duration):
+        self.id = id
         self.title = title
         self.rating = rating
         self.description = description

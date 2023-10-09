@@ -1,8 +1,8 @@
 #mdContainer {
-    height: 100vh;
+    height: 90vh;
     text-align: left;
     background-size: cover;
-    box-shadow: inset 115vh 0px 200px 0px rgba(0, 0, 0, 0.9);
+    box-shadow: inset 115vh 0px 200px 0px rgba(0, 0, 0, 0.95);
 }
 
 #dataContainer {

@@ -60,7 +60,8 @@ class dbContext:
                 self._cursor.execute(f'SELECT * FROM {self._table}')
                 results = self._cursor.fetchall()
             else:
-                self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
+                test = f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\''
+                self._cursor.execute(test)
                 results = self._cursor.fetchall()
             self.closeConnection()
             return results
