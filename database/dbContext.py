@@ -8,7 +8,7 @@ class dbContext:
         self._conn = None
         self._cursor = None
 
-    def config(self, filename='dbData.ini', section='postgresql'):
+    def config(self, filename='./Proyecto/Netflix-iabd/database/dbData.ini', section='postgresql'):
         parser = ConfigParser()
         parser.read(filename)
         
@@ -60,7 +60,7 @@ class dbContext:
                 self._cursor.execute(f'SELECT * FROM {self._table}')
                 results = self._cursor.fetchmany()
             else:
-                self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
+                self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'{value}\'')
                 results = self._cursor.fetchmany()
             self.closeConnection()
             return results
