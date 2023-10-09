@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Movies{% endblock %}
+{% block content %}
+<div id="moviesContainer">
+{% for movie in movies %}
+    <a href="{{ url_for('movieData', movie_id=movie.id) }}">
+        <div class="movie">
+            <img src="static/{{movie.movie_image}}Bg.png" alt="movie" class="image">
+            <div class="overlay">
+                <span class="text">{{movie.title}}</span>
+            </div>
+        </div>
+    </a>
+{% endfor %}
+</div>
+{% endblock %}

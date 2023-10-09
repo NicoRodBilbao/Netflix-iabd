@@ -12,12 +12,16 @@
 # Here start the actual classes
 
 class movie:
-    def __init__(self,title,description,cost,earnings,movie_image):
+    def __init__(self,id,title,rating,description,cost,earnings,movie_image,release_date,duration):
+        self.id = id
         self.title = title
+        self.rating = rating
         self.description = description
         self.cost = cost
         self.earnings = earnings
         self.movie_image = movie_image
+        self.release_date = release_date
+        self.duration = duration
         
 class playlist:
     def __init__(self,userId,playlistName,movies):

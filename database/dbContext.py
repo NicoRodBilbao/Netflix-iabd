@@ -43,10 +43,10 @@ class dbContext:
             self.openConnection()
             if key == None:
                 self._cursor.execute(f'SELECT {columns} FROM {self._table}')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             else:
                 self._cursor.execute(f'SELECT {columns} FROM {self._table} WHERE {key} LIKE \'%{value}%\'')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             self.closeConnection()
             return results
         except (Exception, psycopg2.DatabaseError) as error:
@@ -58,7 +58,7 @@ class dbContext:
             self.openConnection()
             if key == None:
                 self._cursor.execute(f'SELECT * FROM {self._table}')
-                results = self._cursor.fetchmany()
+                results = self._cursor.fetchall()
             else:
                 self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'{value}\'')
                 results = self._cursor.fetchmany()
