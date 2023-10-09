@@ -8,7 +8,7 @@ class dbContext:
         self._conn = None
         self._cursor = None
 
-    def config(self, filename='./Proyecto/Netflix-iabd/database/dbData.ini', section='postgresql'):
+    def config(self, filename='./database/dbData.ini', section='postgresql'):
         parser = ConfigParser()
         parser.read(filename)
         
