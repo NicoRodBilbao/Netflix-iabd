@@ -60,20 +60,8 @@ class dbContext:
                 self._cursor.execute(f'SELECT * FROM {self._table}')
                 results = self._cursor.fetchall()
             else:
-                test = f'SELECT * FROM {self._table} WHERE {key} LIKE \'%{value}%\''
-                self._cursor.execute(test)
-                results = self._cursor.fetchall()
-            self.closeConnection()
-            return results
-        except (Exception, psycopg2.DatabaseError) as error:
-            logging.error(error)
-            self.closeConnection()
-            
-    def selectById(self, value):
-        try:
-            self.openConnection()
-            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {self._table[:-1]}_id = {value}')
-            results = self._cursor.fetchone()
+                self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} LIKE \'{value}\'')
+                results = self._cursor.fetchmany()
             self.closeConnection()
             return results
         except (Exception, psycopg2.DatabaseError) as error:

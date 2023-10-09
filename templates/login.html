@@ -1,0 +1,13 @@
+{% extends "baseLogin.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="center">
+        <form role="form" method="POST" action="/getLogin">
+            <h1>Iniciar sesión</h1>       <br/>
+                <input type="text" id="uname" name="uname" placeholder="Usuario">     <br/><br/>
+            <input type="password" id="passw" name="passw" placeholder="Contraseña"> <br/><br/><br/>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+{% endblock %}

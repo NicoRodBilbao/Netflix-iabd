@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}"/>
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <header class="headerStyle">
+        {% block header %}
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo" />
+        {% endblock %}
+    </header>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
