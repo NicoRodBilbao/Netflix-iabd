@@ -8,6 +8,74 @@
             <p id="descriptionText">
                 {{movie.description}}
             </p>    
+            <div id="btnContainer"/>
+                <button id="btnPl">
+                    <img class="imgBtn" src="../static/plusIcon.png"/>
+                    Añadir a la lista
+                </button>
+                <button id="btnRg">
+                    <img class="imgBtn" src="../static/ratingIcon.png"/>
+                    Valorar
+                </button>
+            <div>
         </div>
     </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div id="listRow">
+                <p>Tus Listas</p>
+                <span class="close">&times;</span>
+            </div>
+            {% for list in lists %}
+                <button class="btnLt">{{list.playlistName}}</button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form role="form" method="POST" action="/setRating">
+                <div id="ratingDiv">
+                    <p>Introduce tu valoración:</p>
+                    <input type="number" min="0" max="10" id="ratingInpt" name="rating" placeholder="7.5">
+                </div>
+                <button type="submit" id="btnSend">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var modal2 = document.getElementById("myModal2");
+        var btnPl = document.getElementById("btnPl");
+        var btnRg = document.getElementById("btnRg");
+        var span = document.getElementsByClassName("close")[0];
+        var span2 = document.getElementsByClassName("close")[1]
+
+        btnPl.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        btnRg.onclick = function() {
+            modal2.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        span2.onclick = function() {
+            modal2.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            } else if (event.target == modal2) {
+                modal2.style.display = "none"
+            }
+        }
+    </script>
 {% endblock %}

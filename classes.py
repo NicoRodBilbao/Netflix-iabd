@@ -24,7 +24,8 @@ class movie:
         self.duration = duration
         
 class playlist:
-    def __init__(self,userId,playlistName,movies):
+    def __init__(self,playlistId,userId,playlistName,movies):
+        self.playlistId = playlistId
         self.userId = userId
         self.playlistName = playlistName
         self.movies = movies

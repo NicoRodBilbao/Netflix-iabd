@@ -67,6 +67,17 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
+            
+    def selectById(self, value):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {self._table[:-1]}_id = {value}')
+            results = self._cursor.fetchone()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
     
     def insert(self,values):
         try:

@@ -1,3 +1,97 @@
+/* General */
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #0c0c0c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.headerStyle {
+    background-color: #000000;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-shadow: 10px 1px 10px 5px rgb(38, 38, 38);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+    height: 75px;
+}
+
+header>button {
+    font-size: medium;
+    background-color: transparent;
+    border-color: transparent;
+    color: #ffffff;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    height: 75px;
+}
+
+.pfp {
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 50px;
+}
+/* Movies List */
+#moviesContainer {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+    row-gap: 50px;
+    height: 100%;
+    padding: 2%;
+}
+
+.movie {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 10px 3px rgb(0, 0, 0);
+}
+
+.imgMovie {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: black;
+}
+
+.movie:hover .overlay {
+    opacity: 0.9;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Movie Data */
 #mdContainer {
     height: 90vh;
     text-align: left;
@@ -23,98 +117,171 @@
     margin: 0;
 }
 
-#descriptionText, #dataText {
+#descriptionText,
+#dataText {
     font-size: 24px;
     color: #938f89;
     margin-left: 5px;
 }
 
-body {
-    padding: 0;
-    margin: 0;
-    background-color: #0c0c0c;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#moviesContainer {
+#btnContainer {
     display: grid;
-    grid-template-rows: repeat(auto-fit, 1fr);
-    grid-template-columns: repeat(5, 1fr);
-    gap: 25px;
-    row-gap: 50px;
-    height: 100%;
-    padding: 2%;
+    grid-template-columns: repeat(2, 1fr);
+    width: 475px;
 }
 
-.movie {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0px 0px 10px 3px rgb(0, 0, 0);
+#btnPl,
+#btnRg {
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 17px;
+    border: 0;
+    padding: 10px 25px 10px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
-  
-.image {
-    display: block;
-    width: 100%;
-    height: 100%;
+
+#btnPl {
+    background-color: white;
+    width: 220px;
 }
-  
-.overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: black;
+
+#btnPl:hover {
+    background-color: lightgray;
 }
-  
-.movie:hover .overlay {
-    opacity: 0.9;
-}
-  
-.text {
+
+#btnRg {
+    background-color: gray;
     color: white;
-    font-size: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    width: 150px;
+}
+
+#btnRg:hover {
+    background-color: #db0000;
+}
+
+.imgBtn {
+    height: 23px;
+    padding-right: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #0c0c0c;
+    margin: 10% auto;
+    padding: 40px;
+    width: 50%;
+    display: grid;
+    grid-template-rows: repeat(auto, 1fr);
+    height: auto;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 95%;
+}
+
+.close:hover,
+.close:focus {
+    color: #db0000ed;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btnLt {
+    height: 50px;
+    width: 100%;
+    background-color: transparent;
+    border: 0px white;
+    border-bottom: 1px solid;
+    color: white;
+    text-align: start;
+}
+
+.btnLt:hover {
+    background-color: black;
+    color: lightgray;
+    border-color: lightgray;
+    cursor: pointer;
+}
+
+#listRow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 5px;
+    margin-bottom: 25px;
+}
+
+#listRow p {
+    color: white;
+    font-weight: bold;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+#ratingDiv {
+    color: white;
+    font-size: 24px;
+    display: flex;
+    width: 100%;
+    padding-left: 25%;
+    align-items: center;
+}
+
+#ratingInpt {
+    height: 24px;
+    width: 32px;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 15px;
+    border: 0;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    background-color: rgb(55, 55, 55);
+    color: white;
     text-align: center;
 }
 
-.headerStyle{
-    background-color:   #000000;
-    overflow:hidden;
-    position:relative;
-    display: flex;
-    align-items: center;
-    box-shadow: 10px 1px 10px 5px rgb(38, 38, 38);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.logo{
-    height:75px;
-}
-
-header > button{
-    font-size: medium;
-    background-color: transparent;
-    border-color: transparent;
-    color: #ffffff;
-    padding-left: 2.5%;
-    padding-right: 2.5%;
-    height:75px;
-}
-.pfp{
-    margin-left: auto;
-    margin-right: 50px;
-    margin-top: 10px;
+#btnSend {
+    cursor: pointer;
+    border-radius: 0;
+    border: 0;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px;
+    width: 150px;
+    margin-left: 35%;
     margin-bottom: 10px;
-    height: 50px;
+    margin-top: 15px;
+}
+
+#btnSend:hover {
+    background-color: #db0000;
+    color: white;
 }

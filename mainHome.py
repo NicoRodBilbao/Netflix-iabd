@@ -1,6 +1,7 @@
 from classes import *
 from database.dbContext import *
 from flask import Flask, render_template, request
+from database.parser import *
 
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ def parseUser(resultUser):
     return user(resultUser[1],resultUser[2],resultUser[3],resultUser[4],resultUser[5],None,None)
     # correo,pasw,uname,ntef,rol"""
 
-@app.route('/login')
+@app.route('/')
 def login():
     return render_template('login.html')
 
@@ -33,10 +34,29 @@ def getLogin():
         password = request.form["passw"]
         flag = getUser(username,password)
         if flag:
-            return render_template('moviesList.html')
+            return movieList()
         else:
             return render_template('login.html')
-        
+    
+@app.route('/movies')
+def movieList():
+    context = dbContext('movies')
+    resultMovies = context.selectAllColumns()
+    myMovies = []
+    for movie in resultMovies:
+        myMovies.append(parser.parseMovie(movie))
+    return render_template('moviesList.html',movies=myMovies)
+
+@app.route("/movie/<int:movie_id>")
+def movieData(movie_id):
+    contextMovies = dbContext('movies')
+    contextLists = dbContext('playlists')
+    myMovie = parser.parseMovie(contextMovies.selectById(movie_id))
+    resultLists = contextLists.selectAllColumns()
+    myLists = []
+    for list in resultLists:
+        myLists.append(parser.parsePlaylist(list))
+    return render_template('movieData.html',movie=myMovie, lists=myLists)
     
 if __name__ == '__main__':
     app.run()
