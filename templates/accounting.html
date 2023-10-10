@@ -1,10 +1,60 @@
 {% extends "base.html" %}
 {% block title %}Accounting{% endblock %}
 {% block content %}
-<p> Costes totales: </p>
-<p> Ganancias totales: </p>
-<p> Beneficio total: </p>
-<div id="tablesContainer">
-
+<div id="accountingDiv">
+    <h1>Contabilidad</h1>
+    <p> Costes totales: </p>
+    <p> Ganancias totales: </p>
+    <p> Beneficio total: </p>
+    <br/>
+    <div id="tablesContainer">
+        <h3>Películas</h3>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Costes</th>
+                <th>Ganancias</th>
+                <th>Beneficio</th>
+            </tr>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.cost}}</td>
+                    <td>{{movie.earnings}}</td>
+                    <td>{{movie.profit}}</td>
+                </tr>
+            {% endfor %}
+            <tr class="trTotal">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <br/>
+        <h3>Subscripciones</h3>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Ganancias</th>
+            </tr>
+            {% for sub in subscriptions %}
+                <tr>
+                    <td>{{sub.subscriptionName}}</td>
+                    <td>{{sub.price}}</td>
+                    <td>{{sub.quantity}}</td>
+                    <td>{{sub.earnings}}</td>
+                </tr>
+            {% endfor %}
+            <tr class="trTotal">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 </div>
 {% endblock %}

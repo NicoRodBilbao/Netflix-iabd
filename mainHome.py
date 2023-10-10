@@ -57,6 +57,19 @@ def movieData(movie_id):
     for list in resultLists:
         myLists.append(parser.parsePlaylist(list))
     return render_template('movieData.html',movie=myMovie, lists=myLists)
+
+@app.route('/accounting')
+def accounting():
+    context = dbContext('movies')
+    resultMovies = context.selectAllColumns()
+    resultSubs = context.selectSubsCount()
+    myMovies = []
+    for movie in resultMovies:
+        myMovies.append(parser.parseMovie(movie))
+    mySubs = []
+    for sub in resultSubs:
+        mySubs.append(parser.parseSub(sub))
+    return render_template('accounting.html',movies=myMovies, subscriptions=mySubs)
     
 if __name__ == '__main__':
     app.run()

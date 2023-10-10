@@ -114,7 +114,19 @@ class dbContext:
             self.openConnection()
             self._cursor.execute(f'DELETE FROM {self._table} WHERE {column} LIKE \'%{value}%\'')
             self._conn.commit()
-            self.closeConnection
+            self.closeConnection()
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
+            
+    def selectSubsCount(self):
+        try:
+            self.openConnection()
+            self._cursor.execute("SELECT sub.*, COUNT(rel.subscription_id) FROM subscriptions sub, users_subscriptions rel WHERE sub.subscription_id = rel.subscription_id GROUP BY rel.subscription_id, sub.subscription_id")
+            self._conn.commit()
+            results = self._cursor.fetchall()
+            self.closeConnection()
+            return results
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()

@@ -22,6 +22,7 @@ class movie:
         self.movie_image = movie_image
         self.release_date = release_date
         self.duration = duration
+        self.profit = earnings - cost
         
 class playlist:
     def __init__(self,playlistId,userId,playlistName,movies):
@@ -31,10 +32,12 @@ class playlist:
         self.movies = movies
         
 class subscription:
-    def __init__(self,subscriptionName,price,duration):
+    def __init__(self,subscriptionName,price,duration,quantity):
         self.subscriptionName = subscriptionName
         self.price = price
         self.duration = duration
+        self.quantity = quantity
+        self.earnings = price*quantity
         
 class user:
     def __init__(self,email,password,username,phoneNumber,role,movies,subscriptions):

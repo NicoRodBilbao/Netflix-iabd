@@ -5,3 +5,6 @@ class parser:
     
     def parsePlaylist(resultList):
         return playlist(resultList[0],resultList[1],resultList[2],None)
+    
+    def parseSub(resultSubs):
+        return subscription(resultSubs[1],resultSubs[2],resultSubs[3],resultSubs[4])
