@@ -291,6 +291,7 @@ input::-webkit-inner-spin-button {
 #accountingDiv {
     color: white;
     padding-left: 15%;
+    margin-top: 50px;
 }
 
 table {
@@ -299,6 +300,7 @@ table {
     width: 80%;
     color: black;
     margin-bottom: 30px;
+    box-shadow: 0px 0px 10px 3px rgb(0, 0, 0);
 }
 
 table td,

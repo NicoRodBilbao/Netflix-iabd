@@ -3,9 +3,9 @@
 {% block content %}
 <div id="accountingDiv">
     <h1>Contabilidad</h1>
-    <p> Costes totales: </p>
-    <p> Ganancias totales: </p>
-    <p> Beneficio total: </p>
+    <p><strong>Costes totales: </strong>{{tMoviesCost}}</p>
+    <p><strong>Ganancias totales: </strong>{{totalEarnings}}</p>
+    <p><strong>Beneficio total: </strong>{{totalProfit}}</p>
     <br/>
     <div id="tablesContainer">
         <h3>Películas</h3>
@@ -26,9 +26,9 @@
             {% endfor %}
             <tr class="trTotal">
                 <td>Total</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{tMoviesCost}}</td>
+                <td>{{tMoviesEarnings}}</td>
+                <td>{{tMoviesProfit}}</td>
             </tr>
         </table>
         <br/>
@@ -51,8 +51,8 @@
             <tr class="trTotal">
                 <td>Total</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>{{tSubsQuantity}}</td>
+                <td>{{tSubsEarnings}}</td>
             </tr>
         </table>
     </div>

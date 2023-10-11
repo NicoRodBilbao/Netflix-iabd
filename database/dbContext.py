@@ -30,8 +30,7 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
-                
-                
+                  
     def closeConnection(self):
         if self._conn is not None:
             self._conn.close()
