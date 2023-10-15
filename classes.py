@@ -1,38 +1,28 @@
 # Generic class template
-# !COMMENT WHEN CODING STARTS
-"""class myClass:
-    def __init__(self, name):
-        self.name = name
-        self.sample = "Text"
-        
-        # Here you add extra attributes
-    def method(string):
-        "".__add__(string,".")"""
-
-# Here start the actual classes
 
 class movie:
-    def __init__(self,id,title,rating,description,cost,earnings,movie_image,release_date,duration):
+    def __init__(self,id,title,rating,description,cost,earnings,movieImage,releaseDate,duration):
         self.id = id
         self.title = title
         self.rating = rating
         self.description = description
         self.cost = cost
         self.earnings = earnings
-        self.movie_image = movie_image
-        self.release_date = release_date
+        self.movieImage = movieImage
+        self.releaseDate = releaseDate
         self.duration = duration
         self.profit = earnings - cost
         
 class playlist:
-    def __init__(self,playlistId,userId,playlistName,movies):
-        self.playlistId = playlistId
+    def __init__(self,id,userId,playlistName,movies):
+        self.id = id
         self.userId = userId
         self.playlistName = playlistName
         self.movies = movies
         
 class subscription:
-    def __init__(self,subscriptionName,price,duration,quantity):
+    def __init__(self,id,subscriptionName,price,duration,quantity):
+        self.id = id
         self.subscriptionName = subscriptionName
         self.price = price
         self.duration = duration
@@ -40,7 +30,8 @@ class subscription:
         self.earnings = price*quantity
         
 class user:
-    def __init__(self,email,password,username,phoneNumber,role,movies,subscriptions):
+    def __init__(self,id,email,password,username,phoneNumber,role,movies,subscriptions):
+        self.id = id
         self.email = email
         self.password = password
         self.username = username

@@ -3,18 +3,18 @@
 {% block content %}
 <div id="accountingDiv">
     <h1>Contabilidad</h1>
-    <p><strong>Costes totales: </strong>{{tMoviesCost}}</p>
-    <p><strong>Ganancias totales: </strong>{{totalEarnings}}</p>
-    <p><strong>Beneficio total: </strong>{{totalProfit}}</p>
+    <p><strong>Costes totales: </strong>{{tMoviesCost}}€</p>
+    <p><strong>Ganancias totales: </strong>{{totalEarnings}}€</p>
+    <p><strong>Beneficio total: </strong>{{totalProfit}}€</p>
     <br/>
     <div id="tablesContainer">
         <h3>Películas</h3>
         <table>
             <tr>
                 <th>Nombre</th>
-                <th>Costes</th>
-                <th>Ganancias</th>
-                <th>Beneficio</th>
+                <th>Costes (€)</th>
+                <th>Ganancias (€)</th>
+                <th>Beneficio (€)</th>
             </tr>
             {% for movie in movies %}
                 <tr>
@@ -36,9 +36,9 @@
         <table>
             <tr>
                 <th>Nombre</th>
-                <th>Precio</th>
+                <th>Precio (€)</th>
                 <th>Cantidad</th>
-                <th>Ganancias</th>
+                <th>Ganancias (€)</th>
             </tr>
             {% for sub in subscriptions %}
                 <tr>
