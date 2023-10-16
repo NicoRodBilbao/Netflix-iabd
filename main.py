@@ -18,33 +18,31 @@ def getLogin():
         if user is None:
             return render_template('login.html')
         else:
-            return movieList(user.id)
+            return movieList()
 
 # Route to display the list of movies
 @app.route('/movies')
-def movieList(myUserId):
-    return render_template('moviesList.html',movies=getMovies(),userId=myUserId)
+def movieList():
+    return render_template('moviesList.html',movies=getMovies(),userId=curUserId)
 
 # Route to display details of a specific movie
-@app.route("/movie/<int:myUserId>/<int:movieId>")
-def movieData(movieId,myUserId):
-    return render_template('movieData.html',movie=getMovieById(movieId), lists=getLists(myUserId),userId=myUserId)
+@app.route("/movie/<int:movieId>")
+def movieData(movieId):
+    return render_template('movieData.html',movie=getMovieById(movieId),lists=getLists(),rating=getMovieRating(movieId))
 
 # Route to add a movie to a playlist
 @app.route("/addMovieToPlaylist/<int:playlistId>", methods=['POST'])
 def addMovieToPlaylist(playlistId):
     movieId = request.form.get("movieId")
-    userId = request.form.get("userId")
     insertMovieList(playlistId,movieId)
-    return movieData(movieId,userId)
+    return movieData(movieId)
 
 # Route to set a rating for a movie
 @app.route("/setRating/<int:movieId>", methods=['POST'])
 def setRating(movieId):
     rating = request.form.get("rating")
-    userId = request.form.get("userId")
-    insertRating(userId,movieId,rating)
-    return movieData(movieId,userId)
+    insertRating(movieId,rating)
+    return movieData(movieId)
 
 # Route to display accounting information
 @app.route('/accounting')
@@ -70,6 +68,14 @@ def accounting():
                            totalEarnings=f"{round(myTotalEarnings,2):,}",totalProfit=f"{round(myTotalProfit,2):,}")
 
 # Function to get the list of movies
+def getMovieRating(movieId):
+    try:
+        context = dbContext('users_movies')
+        return context.selectTwoConditions("rating",["user_id","movie_id"],[curUserId,movieId])[0]
+    except Exception as error:
+        logging.error(error)
+ 
+# Function to get the list of movies
 def getMovies():
     try:
         context = dbContext('movies')
@@ -94,10 +100,10 @@ def getSubs():
         logging.error(error)
 
 # Function to get the list of playlists for a specific user
-def getLists(userId):
+def getLists():
     try:
         context = dbContext("playlists")
-        resultLists = context.selectByInt("user_id",userId)
+        resultLists = context.selectByInt("user_id",curUserId)
         lists = []
         for list in resultLists:
             lists.append(parser.parsePlaylist(list))
@@ -118,6 +124,8 @@ def getUser(username,password):
         context = dbContext("users")
         result = context.selectAllColumns("username",username)
         user = parser.parseUser(result[0])
+        global curUserId
+        curUserId = user.id
         if(password == user.password):
             return user
         else:
@@ -126,10 +134,10 @@ def getUser(username,password):
         return None
     
 # Function to insert or update an user's rating for a movie
-def insertRating(userId,movieId,rating):
+def insertRating(movieId,rating):
     try:
         context = dbContext('users_movies')
-        context.insert([f"{userId}",f"{movieId}",f"{rating}"])
+        context.insert([f"{curUserId}",f"{movieId}",f"{rating}"])
     except Exception as error:
         logging.error(error)  
 

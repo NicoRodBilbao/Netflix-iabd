@@ -59,6 +59,18 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
+            
+    # Function to select data from the database table based on specified columns (result data), two keys and two values (the conditions).
+    def selectTwoConditions(self, columns, keys, values):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'SELECT {columns} FROM {self._table} WHERE {keys[0]} = {values[0]} AND {keys[1]} = {values[1]}')
+            result = self._cursor.fetchone()
+            self.closeConnection()
+            return result
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
     
     # Function to select all columns from the database table based on a specified key and value (the condition).
     # If no key is provided, it will return all the rows.

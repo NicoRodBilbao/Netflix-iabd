@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{movie.title}}{% endblock %}
 {% block content %}
-    <div id="mdContainer" style="background-image: url('../../static/{{movie.movieImage}}Bg.png')">
+    <div id="mdContainer" style="background-image: url('../static/{{movie.movieImage}}Bg.png')">
         <div id="dataContainer">
             <p id="title">{{movie.title}}</p>
             <p id="dataText">{{movie.releaseDate}} &#160-&#160 {{movie.duration}}min &#160-&#160 {{movie.rating}} <img src="{{ url_for('static', filename='star.png')}}" width="18px"/></p>
@@ -10,11 +10,11 @@
             </p>    
             <div id="btnContainer">
                 <button id="btnPl">
-                    <img class="imgBtn" src="../../static/plusIcon.png"/>
+                    <img class="imgBtn" src="../static/plusIcon.png"/>
                     Añadir a la lista
                 </button>
                 <button id="btnRg">
-                    <img class="imgBtn" src="../../static/ratingIcon.png"/>
+                    <img class="imgBtn" src="../static/ratingIcon.png"/>
                     Valorar
                 </button>
             </div>
@@ -31,7 +31,6 @@
             <form method="POST" action="/addMovieToPlaylist/{{list.id}}">
                 <button type="submit" class="btnLt">{{list.playlistName}}</button>
                 <input type="hidden" name="movieId" value="{{movie.id}}">
-                <input type="hidden" name="userId" value="{{userId}}">
             </form>
             {% endfor %}
         </div>
@@ -43,8 +42,7 @@
             <form method="POST" action="/setRating/{{movie.id}}">
                 <div id="ratingDiv">
                     <p>Introduce tu valoración:</p>
-                    <input type="number" min="0.0" max="10.0" id="ratingInpt" step="0.1" name="rating" placeholder="7.5" value="{{movie.rating}}">
-                    <input type="hidden" name="userId" value="{{userId}}">
+                    <input type="number" min="0.0" max="10.0" id="ratingInpt" step="0.1" name="rating" placeholder="7.5" value="{{rating}}">
                 </div>
                 <button type="submit" id="btnSend">Enviar</button>
             </form>

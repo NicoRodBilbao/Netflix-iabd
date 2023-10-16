@@ -1,60 +1,70 @@
-{% extends "base.html" %}
-{% block title %}Accounting{% endblock %}
-{% block content %}
-<div id="accountingDiv">
-    <h1>Contabilidad</h1>
-    <p><strong>Costes totales: </strong>{{tMoviesCost}}€</p>
-    <p><strong>Ganancias totales: </strong>{{totalEarnings}}€</p>
-    <p><strong>Beneficio total: </strong>{{totalProfit}}€</p>
-    <br/>
-    <div id="tablesContainer">
-        <h3>Películas</h3>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Costes (€)</th>
-                <th>Ganancias (€)</th>
-                <th>Beneficio (€)</th>
-            </tr>
-            {% for movie in movies %}
-                <tr>
-                    <td>{{movie.title}}</td>
-                    <td>{{movie.cost}}</td>
-                    <td>{{movie.earnings}}</td>
-                    <td>{{movie.profit}}</td>
-                </tr>
-            {% endfor %}
-            <tr class="trTotal">
-                <td>Total</td>
-                <td>{{tMoviesCost}}</td>
-                <td>{{tMoviesEarnings}}</td>
-                <td>{{tMoviesProfit}}</td>
-            </tr>
-        </table>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='netflixStyleSheet.css') }}" />
+        <title>Accounting</title>
+    </head>
+    <header class="headerStyle">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo" />
+        <button onclick="window.location.href='http://127.0.0.1:5000/movies';">Pelis</button>
+        <button onclick="window.location.href='http://127.0.0.1:5000/playlists';">Listas</button>
+        <img src="{{ url_for('static', filename='pfp.jpg') }}" class="pfp" />
+    </header>
+    <div id="accountingDiv">
+        <h1>Contabilidad</h1>
+        <p><strong>Costes totales: </strong>{{tMoviesCost}}€</p>
+        <p><strong>Ganancias totales: </strong>{{totalEarnings}}€</p>
+        <p><strong>Beneficio total: </strong>{{totalProfit}}€</p>
         <br/>
-        <h3>Subscripciones</h3>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio (€)</th>
-                <th>Cantidad</th>
-                <th>Ganancias (€)</th>
-            </tr>
-            {% for sub in subscriptions %}
+        <div id="tablesContainer">
+            <h3>Películas</h3>
+            <table>
                 <tr>
-                    <td>{{sub.subscriptionName}}</td>
-                    <td>{{sub.price}}</td>
-                    <td>{{sub.quantity}}</td>
-                    <td>{{sub.earnings}}</td>
+                    <th>Nombre</th>
+                    <th>Costes (€)</th>
+                    <th>Ganancias (€)</th>
+                    <th>Beneficio (€)</th>
                 </tr>
-            {% endfor %}
-            <tr class="trTotal">
-                <td>Total</td>
-                <td></td>
-                <td>{{tSubsQuantity}}</td>
-                <td>{{tSubsEarnings}}</td>
-            </tr>
-        </table>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{movie.title}}</td>
+                        <td>{{movie.cost}}</td>
+                        <td>{{movie.earnings}}</td>
+                        <td>{{movie.profit}}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="trTotal">
+                    <td>Total</td>
+                    <td>{{tMoviesCost}}</td>
+                    <td>{{tMoviesEarnings}}</td>
+                    <td>{{tMoviesProfit}}</td>
+                </tr>
+            </table>
+            <br/>
+            <h3>Subscripciones</h3>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio (€)</th>
+                    <th>Cantidad</th>
+                    <th>Ganancias (€)</th>
+                </tr>
+                {% for sub in subscriptions %}
+                    <tr>
+                        <td>{{sub.subscriptionName}}</td>
+                        <td>{{sub.price}}</td>
+                        <td>{{sub.quantity}}</td>
+                        <td>{{sub.earnings}}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="trTotal">
+                    <td>Total</td>
+                    <td></td>
+                    <td>{{tSubsQuantity}}</td>
+                    <td>{{tSubsEarnings}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-{% endblock %}
+</html>
