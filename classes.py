@@ -24,7 +24,8 @@ class movie:
         self.duration = duration
         
 class playlist:
-    def __init__(self,userId,playlistName,movies):
+    def __init__(self,id,userId,playlistName,movies):
+        self.id = id
         self.userId = userId
         self.playlistName = playlistName
         self.movies = movies
@@ -36,7 +37,8 @@ class subscription:
         self.duration = duration
         
 class user:
-    def __init__(self,email,password,username,phoneNumber,role,movies,subscriptions):
+    def __init__(self,user_id,email,password,username,phoneNumber,role,movies,subscriptions):
+        self.user_id = user_id
         self.email = email
         self.password = password
         self.username = username

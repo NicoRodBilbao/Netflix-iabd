@@ -67,6 +67,17 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
+            
+    def selectAllPlaylistMovies(self,value = None):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'select * from movies as mo inner join movies_playlists as mp on mo.movie_id = mp.movie_id where mp.playlist_id = \'{value}\'')
+            results = self._cursor.fetchall()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
     
     def insert(self,values):
         try:
@@ -107,3 +118,27 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
+            
+    def selectById(self, value):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {self._table[:-1]}_id = {value}')
+            results = self._cursor.fetchone()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
+            
+    def selectByInt(self, key, value):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'SELECT * FROM {self._table} WHERE {key} = {value}')
+            results = self._cursor.fetchall()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
+            
+"""🚭🚭🚭🚭🚭🚭🚭"""
