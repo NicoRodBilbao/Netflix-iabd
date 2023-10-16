@@ -14,21 +14,24 @@ def getLogin():
     if request.method == "POST":
         username = request.form["uname"]
         password = request.form["passw"]
-        user = getUser(username,password)
-        if user is None:
-            return render_template('login.html')
+        flag = getUser(username,password)
+        if flag:
+            if   curUser.role == "user":
+                return movieList()
+            elif curUser.role == "accountant": # Insert accountability role
+                return accounting()   # Return accountability html
         else:
-            return movieList()
+            return render_template('login.html')
 
 # Route to display the list of movies
 @app.route('/movies')
 def movieList():
-    return render_template('moviesList.html',movies=getMovies(),userId=curUserId)
+    return render_template('moviesList.html',movies=getMovies(),userId=curUser.id)
 
 # Route to display details of a specific movie
 @app.route("/movie/<int:movieId>")
 def movieData(movieId):
-    return render_template('movieData.html',movie=getMovieById(movieId),lists=getLists(),rating=getMovieRating(movieId))
+    return render_template('movieData.html',movie=getMovieById(movieId),lists=getLists(),movieRating=getMovieRating(movieId))
 
 # Route to add a movie to a playlist
 @app.route("/addMovieToPlaylist/<int:playlistId>", methods=['POST'])
@@ -43,6 +46,31 @@ def setRating(movieId):
     rating = request.form.get("rating")
     insertRating(movieId,rating)
     return movieData(movieId)
+
+@app.route('/playlists')
+def playlists():
+    context = dbContext('playlists')
+    resultPlaylists = context.selectByInt("user_id",curUser.id)
+    my_playlists = []
+    for playlist in resultPlaylists:
+        my_playlists.append(parser.parsePlaylist(playlist))
+    return render_template('lists.html',playlists=my_playlists)
+
+@app.route('/playlists/<int:playlist_id>/movies')
+def playlistMovies(playlist_id):
+    context = dbContext('movies')
+    resultMovies = context.selectAllPlaylistMovies(playlist_id)
+    my_movies = []
+    for movie in resultMovies:
+        my_movies.append(parser.parseMovie(movie))
+    return render_template('moviesList.html',movies=my_movies)
+    
+@app.route('/playlists/createPlaylist', methods=['POST'])
+def createPlaylist():
+    playlistName = request.form["playlistName"]
+    context = dbContext('playlists')
+    context.insert([str(curUser.id),"\'"+playlistName+"\'"])
+    return playlists()
 
 # Route to display accounting information
 @app.route('/accounting')
@@ -71,7 +99,7 @@ def accounting():
 def getMovieRating(movieId):
     try:
         context = dbContext('users_movies')
-        return context.selectTwoConditions("rating",["user_id","movie_id"],[curUserId,movieId])[0]
+        return context.selectTwoConditions("rating",["user_id","movie_id"],[curUser.id,movieId])[0]
     except Exception as error:
         logging.error(error)
  
@@ -103,7 +131,7 @@ def getSubs():
 def getLists():
     try:
         context = dbContext("playlists")
-        resultLists = context.selectByInt("user_id",curUserId)
+        resultLists = context.selectByInt("user_id",curUser.id)
         lists = []
         for list in resultLists:
             lists.append(parser.parsePlaylist(list))
@@ -124,20 +152,20 @@ def getUser(username,password):
         context = dbContext("users")
         result = context.selectAllColumns("username",username)
         user = parser.parseUser(result[0])
-        global curUserId
-        curUserId = user.id
         if(password == user.password):
-            return user
+            global curUser
+            curUser = user
+            return True
         else:
-            return None
+            return False
     except:
-        return None
+        return False
     
 # Function to insert or update an user's rating for a movie
 def insertRating(movieId,rating):
     try:
         context = dbContext('users_movies')
-        context.insert([f"{curUserId}",f"{movieId}",f"{rating}"])
+        context.insert([f"{curUser.id}",f"{movieId}",f"{rating}"])
     except Exception as error:
         logging.error(error)  
 

@@ -42,7 +42,7 @@
             <form method="POST" action="/setRating/{{movie.id}}">
                 <div id="ratingDiv">
                     <p>Introduce tu valoración:</p>
-                    <input type="number" min="0.0" max="10.0" id="ratingInpt" step="0.1" name="rating" placeholder="7.5" value="{{rating}}">
+                    <input type="number" min="0.0" max="10.0" id="ratingInpt" step="0.1" name="rating" placeholder="7.5" value="{{movieRating}}">
                 </div>
                 <button type="submit" id="btnSend">Enviar</button>
             </form>

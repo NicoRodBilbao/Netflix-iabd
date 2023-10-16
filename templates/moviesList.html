@@ -5,7 +5,7 @@
 {% for movie in movies %}
     <a href="{{ url_for('movieData', movieId=movie.id) }}">
         <div class="movie">
-            <img src="static/{{movie.movieImage}}Bg.png" alt="movie" class="imgMovie">
+            <img src="/static/{{movie.movieImage}}Bg.png" alt="movie" class="imgMovie">
             <div class="overlay">
                 <span class="text">{{movie.title}}</span>
             </div>
