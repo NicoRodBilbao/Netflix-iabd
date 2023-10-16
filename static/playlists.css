@@ -1,0 +1,174 @@
+#mdContainer {
+    text-align: left;
+    background-size: cover;
+    box-shadow: inset 115vh 0px 200px 0px rgba(0, 0, 0, 0.95);
+}
+
+#dataContainer {
+
+    text-wrap: stable;
+    padding-left: 75px;
+    padding-top: 100px;
+}
+
+#title {
+    font-size: 64px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+#dataText {
+    margin: 0;
+}
+
+#descriptionText, #dataText {
+    font-size: 24px;
+    color: #938f89;
+    margin-left: 5px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #0c0c0c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#playlistsContainer {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    gap: 25px;
+    row-gap: 50px;
+    margin-left: 270px;
+    width: 59.34%;
+    padding: 2%;
+    justify-content:end;
+}
+
+.playlist {
+    position: relative;
+    width: 125vh;
+    height: 10vh;
+    box-shadow: 0px 0px 10px 3px rgb(0, 0, 0);
+}
+  
+.image {
+    display: block;
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+    opacity: 0.5;
+}
+  
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: black;
+    opacity: 0.5;
+}
+  
+.text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 1;
+}
+
+.headerStyle{
+    background-color:   #000000;
+    overflow:hidden;
+    position:relative;
+    display: flex;
+    align-items: center;
+    box-shadow: 10px 1px 10px 5px rgb(38, 38, 38);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo{
+    height:75px;
+}
+
+header > button{
+    font-size: medium;
+    background-color: transparent;
+    border-color: transparent;
+    color: #ffffff;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    height:75px;
+}
+.pfp{
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #0c0c0c;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+		
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.myBtn{
+    color: #ffffff;
+    background-color: #db000000;
+    border-color: #db0000;
+    width: 5vh;
+    height: 5vh;
+    margin-left: 91.12%;
+    font-size: x-large;
+    font-weight: bolder;
+    border-radius: 100%;
+}

@@ -1,0 +1,33 @@
+{% extends "basePlaylists.html" %}
+{% block title %}Playlists{% endblock %}
+{% block content %}
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form role="form" method="POST" action="/playlists/createPlaylist">
+            <label>Introduce el nombre de la lista:</label>
+            <input type="text" id="playlistName" name="playlistName" placeholder="Nombre" style="color:#000000; border-color: #00000000"></input>
+            <button action="submit">Crear</button>
+        </form>
+    </div>
+    
+</div>
+
+<div id="playlistsContainer">
+    <div>
+        <button id="myBtn" class="myBtn">+</button>
+    </div>
+{% for playlist in playlists %}
+    <a href="{{ url_for('playlistMovies', playlist_id=playlist.id) }}">
+        <div class="playlist" >
+            <img src="/static/CarsBg.png" alt="playlist" class="image">
+            <div >
+                <span class="text">{{playlist.playlistName}}</span>
+            </div>
+        </div>
+    </a>
+{% endfor %}
+</div>
+{% endblock %}

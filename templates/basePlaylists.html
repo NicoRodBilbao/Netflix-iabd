@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='playlists.css') }}" />
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <header class="headerStyle">
+        {% block header %}
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo" />
+        <button onclick="window.location.href='http://127.0.0.1:5000/movies';">Pelis</button>
+        <button onclick="window.location.href='http://127.0.0.1:5000/playlists';">Listas</button>
+        <img src="{{ url_for('static', filename='pfp.jpg') }}"  class="pfp" />
+        {% endblock %}
+    </header>
+    <body>
+        {% block content %}
+        {% endblock %}
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+            
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+            
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+              modal.style.display = "block";
+            }
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+            
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+            </script>
+    </body>
+</html>

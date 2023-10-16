@@ -114,6 +114,18 @@ class dbContext:
             self.closeConnection()
 
     # Function to insert data into the table using a stored procedure.
+            
+    def selectAllPlaylistMovies(self,value = None):
+        try:
+            self.openConnection()
+            self._cursor.execute(f'select * from movies as mo inner join movies_playlists as mp on mo.movie_id = mp.movie_id where mp.playlist_id = \'{value}\'')
+            results = self._cursor.fetchall()
+            self.closeConnection()
+            return results
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.error(error)
+            self.closeConnection()
+    
     def insert(self,values):
         try:
             self.openConnection()
@@ -155,7 +167,6 @@ class dbContext:
             self.closeConnection()
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
-            self.closeConnection()
             
     # Function to select subscription data with a count of related user subscriptions.
     def selectSubsCount(self):
@@ -169,3 +180,5 @@ class dbContext:
         except (Exception, psycopg2.DatabaseError) as error:
             logging.error(error)
             self.closeConnection()
+            
+"""🚭🚭🚭🚭🚭🚭🚭"""
